@@ -1,0 +1,23 @@
+$wid:100%;
+$dis:flex;
+$list:none;
+div,p,header,footer,img,ul,li{
+    margin: 0;
+    padding: 0;
+}
+li{display: $dis;
+    list-style: $list;
+    position: relative;
+}
+#phone{
+    width: 125px;
+}
+html,body{
+    width:$wid;  
+}
+header{
+    width: $wid;
+    background-color: #444;
+    display:$dis;
+ul{display: $dis;}
+}
