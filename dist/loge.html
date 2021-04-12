@@ -17,17 +17,78 @@
         <div><img src="https://cdn.ctfmall.com/path/denglulunbo129.jpg" alt=""></div>
         <div class="main-right">
             <div class="top">
-                <span>密码登录</span>
-                <span>动态密码</span>
+                <span class="loge1">密码登录</span>
+                <span class="loge2">动态密码</span>
             </div>
-            <input type="text" placeholder="账号"><br>
-            <input type="text" placeholder="密码"><br>
+            <input class="use" type="text" placeholder="账号"><br>
+            <input type="password" class="psw" placeholder="密码">
+            <aside> <input style="width: 59%;" type="text" placeholder="请输入6位数字验证码"><input
+                    style="width: 40%;height: 52px;" type="button" value="获取验证码"></aside>
             <button>点击按钮进行验证</button>
             <input style="width: 16px;" type="radio" class="mdl"><span> 7天内自动登录</span><br>
             <div class="redbtn">立即登录</div>
             <div class="newus">快速注册</div>
         </div>
+        <div class="main-right">
+            <div class="top">
+                <span style="width: 100%;">加入周大福</span>
+            </div>
+            <input class="use" type="text" placeholder="账号"><br>
+            <button>点击按钮进行验证</button>
+            <input style="width: 59%;" type="text" placeholder="请输入6位数字验证码"><input style="width: 40%;height: 52px;"
+                type="button" value="获取验证码">
+            <input class="npsw" type="password" placeholder="8-16位数字字母组合密码">
+            <div class="redbtn">立即注册</div>
+            <div class="newus">快速登录</div>
+        </div>
     </div>
 </body>
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+    $(".loge2").click(function () {
+        $(".loge2").css({ "color": "brown", "border-bottom": "1px solid #9E0028" });
+        $(".loge1").css({ "color": "black", "border-bottom": "1px solid #d5d5d5" });
+        $("aside").css({ "display": "block" })
+        $(".psw").css({ "display": "none" })
+    });
+    $(".loge1").click(function () {
+        $(".loge1").css({ "color": "brown", "border-bottom": "1px solid #9E0028" });
+        $(".loge2").css({ "color": "black", "border-bottom": "1px solid #d5d5d5" });
+        $("aside").css({ "display": "none" })
+        $(".psw").css({ "display": "block" })
+    });
+    $(".newus").first().click(function () {
+        $(".main-right").first().css({ "display": "none" });
+        $(".main-right").last().css({ "display": "block" });
+    });
+    $(".newus").last().click(function () {
+        $(".main-right").first().css({ "display": "block" });
+        $(".main-right").last().css({ "display": "none" });
+    });
+    $("input").on({
+        focus: function () { $(this).prop("placeholder", ""); }
+    })
+
+    $(".use").change(function () {
+        let str = $(this).val();
+        let reg = /^[a-zA-Z_]\w{5,14}$/;
+        if (reg.test(str)) {
+            str = str;
+        }
+        else {
+            $(this).val('');
+        }
+    });
+    $(".npsw").change(function () {
+        let str = $(this).val();
+        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/
+        if (reg.test(str)) {
+            str = str;
+        }
+        else {
+            $(this).val('');
+        }
+    })
+</script>
 
 </html>

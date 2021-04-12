@@ -76,6 +76,12 @@ justify-content: space-between;}
 #load,#zhuce{
   padding-left: 6px;
 }
+#zhuce:hover{
+  color: white;
+}
+#load:hover{
+  color: white;
+}
 .logo{margin-top: 10px;
  margin-left: 735px;
   width: 119px;

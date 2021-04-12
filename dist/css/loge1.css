@@ -5,23 +5,32 @@ div, p, header, footer, img, ul, li,body,h1,h2,h3,h4,h5,h6 {
     width: 1000px;
     height: 120px;
 }
+.logo img{margin-top: 40px;}
 .main{margin: 0 auto;
     width: 1000px;
 display: flex;}
 .main-right{margin-left: 15px;}
+.main-right:last-child{display: none;}
 .top{
     display: flex;
     width: 400px;
     margin-bottom: 40px;
 }
 .top span{
-    line-height: 44px;
-    border-bottom: 1px solid #d5d5d5;
+    line-height: 44px; 
     display: block;
     width: 50%;
     text-align: center;
 font-size: 18px;
 }
+.loge1{
+    color: brown;
+    border-bottom: 1px solid brown ;
+}
+.loge2{
+     border-bottom: 1px solid #d5d5d5; 
+}
+aside{display: none;}
 input{border: solid 1px #999;
     height: 20px;
     line-height: 20px;
@@ -69,5 +78,8 @@ input{border: solid 1px #999;
     border: 1px solid #9E0028;
     cursor: pointer;
     margin-bottom: 15px; 
-
+        }
+        .newus:hover{
+            transition: all 0.2s linear;
+            background-color: #d39aa8;
         }
