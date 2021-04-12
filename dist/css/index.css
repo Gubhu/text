@@ -214,6 +214,44 @@ position: absolute;
   vertical-align: middle;
     border: 0;
 }
+.shop{position: relative;}
+.shop a{
+  display: block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: yellow;
+  z-index: 2;
+  opacity: 0;
+}
+#clk1{
+  top: 260px;
+  right: 460px;
+  width: 200px;
+  height: 210px;
+}
+#clk2{
+  top: 160px;
+  left: 490px;
+  width: 100px;
+  height: 170px;
+}
+#clk3{
+  bottom: 80px;
+  left: 570px;
+  width: 150px;
+}
+#clk4{
+  bottom: 80px;
+  right: 350px;
+  width: 150px;
+}
+#clk5{
+  top: 130px;
+  right: 450px;
+  height: 240px;
+  width: 160px;
+}
 .mshop{
   width: 100%;
 }
@@ -322,7 +360,12 @@ margin-bottom: 40px;}
         }
         aside div:hover{
           background: red;
+          color: white;
         }
+    .kefu:hover svg{
+          fill:currentColor;
+          color:white;
+          }
         .backtop:hover{
           background: red;
           color: white;

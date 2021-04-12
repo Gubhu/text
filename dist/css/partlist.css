@@ -298,6 +298,30 @@ flex-wrap: nowrap;}
                         width: 80%;
                         height: 100%;
                     }
+                    aside div{
+                        text-align: center;
+                        font-size: 16px;
+                        padding: 10px 3px;
+                        background: white;
+                      }
+                      aside span{
+                        display: block;
+                      }
+                      aside div:hover{
+                        background: red;
+                        color: white;
+                      }
+                  .kefu:hover svg{
+                        fill:currentColor;
+                        color:white;
+                        }
+                      .backtop:hover{
+                        background: red;
+                        color: white;
+                      }
+                      .backtop{font-size: 25px;
+                        display: none;
+                      }
             
                     .swiper-slide {
                         text-align: center;
