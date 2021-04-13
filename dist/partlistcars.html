@@ -76,12 +76,13 @@
                     </li>
                 </ul>
             </a>
-            <a id="load" href="">
-                登录
-            </a>
-            <a id="zhuce" href="">
-                注册
-            </a>
+            <span>
+                <a id="load" href="http://127.0.0.1:5500/dist/loge.html">
+                    登录
+                </a>
+                <a id="zhuce" href="http://127.0.0.1:5500/dist/loge.html">
+                    注册
+                </a></span>
         </ul>
     </header>
     <div class="logo">
@@ -165,8 +166,8 @@
             </span>
         </nav>
     </div>
-    <div>
-        <div class="swiper-container">
+    <div class="partlist">
+        <!-- <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img src="https://cdn.ctfmall.com/thumb2/U181113.jpg" alt="">
@@ -178,7 +179,6 @@
                     <img src="https://cdn.ctfmall.com/thumb2/U181113b.jpg" alt="">
                 </div>
             </div>
-            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
@@ -186,9 +186,9 @@
 
         <h2>【电商专款】周大福 Y时代 如樱随行樱花18K金钻石吊坠</h2>
         <a class="tg" href="">如约盛开,繁樱似锦指定非黄金每满1000-50详情>></a><span class="much">¥980.00</span>
-        <button class="join"><a href="http://127.0.0.1:5500/dist/cart.html">加入购物车</a></button><span>数量</span>
+        <button class="join"><a href="">加入购物车</a></button><span>数量</span>
         <button class="dn">-</button><input class="num" style="width: 15px;" type="text" value="1">
-        <button class="up">+</button>
+        <button class="up">+</button> -->
     </div>
     <aside style="position: fixed;right: 10px;bottom: 20px;z-index: 5;">
         <div class="iconfont icon-gouwuche">
@@ -317,23 +317,17 @@
 </body>
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/swiper-bundle.min.js"></script>
+<script src="js/jquery_cookie.js"></script>
+
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop: true,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-</script>
-<script>
+    if ($.cookie("username")) {
+        $("#header-right span").html("欢迎您" + $.cookie("username"));
+        $("#header-right span").css({ "color": "white" });
+        console.log($.cookie("username"));
+    }
+    $(".icon-gouwuche").click(function () {
+        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    })
     $("#header-left a").mouseover(function () {
         $(this).css("color", "white")
     });
@@ -471,16 +465,72 @@
     $(".navhid ul li span").mouseout(function () {
         $(this).css({ "background": "white", "color": "black" })
     })
-    let oNum = document.querySelector(".num");
-    $(".dn").click(function () {
-        oNum.value--;
-        if (oNum.value <= 1) {
-            oNum.value = 1;
-        }
+
+    let id = location.search.split("=")[1];
+    console.log(id);
+    $.get("http://jx.xuzhixiang.top/ap/api/detail.php", {
+        id: id
+    }, res => {
+        // console.log(res.data);
+        $(".partlist").html(` <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="${res.data.pimg}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="${res.data.pdesc}" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="${res.data.pimg}" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <h2>${res.data.pname}</h2>
+        <a class="tg" href="">如约盛开,繁樱似锦指定非黄金每满1000-50详情>></a><span class="much">¥${res.data.pprice}</span>
+        <button class="join">加入购物车</button><span>数量</span>
+        <button class="dn">-</button><input class="num" style="width: 15px;" type="text" value="1">
+        <button class="up">+</button>`)
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        let oNum = document.querySelector(".num");
+        $(".dn").click(function () {
+            oNum.value--;
+            if (oNum.value <= 1) {
+                oNum.value = 1;
+            }
+        })
+        $(".up").click(function () {
+            oNum.value++;
+        })
+
+        $(".join").click(function () {
+            $.get("http://jx.xuzhixiang.top/ap/api/add-product.php",
+                {
+                    uid: $.cookie('id'), pid: id,
+                    pnum: $(".num").val()
+                }, res => {
+                    console.log(res);
+                })
+        })
     })
-    $(".up").click(function () {
-        oNum.value++;
-    })
+
 </script>
+
 
 </html>

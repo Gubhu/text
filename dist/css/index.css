@@ -218,35 +218,34 @@ position: absolute;
 .shop a{
   display: block;
   position: absolute;
-  width: 40px;
-  height: 40px;
   background: yellow;
   z-index: 2;
-  opacity: 0;
 }
-#clk1{
+.clk1{
   top: 260px;
   right: 460px;
   width: 200px;
   height: 210px;
 }
-#clk2{
+.clk2{
   top: 160px;
   left: 490px;
   width: 100px;
   height: 170px;
 }
-#clk3{
+.clk3{
   bottom: 80px;
   left: 570px;
   width: 150px;
+  height: 40px;
 }
-#clk4{
+.clk4{
   bottom: 80px;
   right: 350px;
   width: 150px;
+  height: 40px;
 }
-#clk5{
+.clk5{
   top: 130px;
   right: 450px;
   height: 240px;

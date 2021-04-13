@@ -75,12 +75,13 @@
                     </li>
                 </ul>
             </a>
-            <a id="load" href="">
-                登录
-            </a>
-            <a id="zhuce" href="">
-                注册
-            </a>
+            <span>
+                <a id="load" href="http://127.0.0.1:5500/dist/loge.html">
+                    登录
+                </a>
+                <a id="zhuce" href="http://127.0.0.1:5500/dist/loge.html">
+                    注册
+                </a></span>
         </ul>
     </header>
     <div class="logo">
@@ -220,7 +221,13 @@
     </footer>
 </body>
 <script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery_cookie.js"></script>
 <script>
+    if ($.cookie("username")) {
+        $("#header-right span").html("欢迎您" + $.cookie("username"));
+        $("#header-right span").css({ "color": "white" });
+        console.log($.cookie("username"));
+    }
     $(window).scroll(function (e) {
         let b = $(window).scrollTop();
         const c = 100;
