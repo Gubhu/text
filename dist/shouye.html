@@ -13,7 +13,7 @@
 <body>
     <header>
         <ul id="header-left">
-            <a href="">
+            <a href="/branch/default.aspx?cid=1">
                 <li>
                     <p>分店网络</p>
                 </li>
@@ -159,7 +159,7 @@
             <span class="iconfont icon-yonghu" id="user">
                 <ul class="userserve">
                     <li> <span> 我的周大福</span></li>
-                    <li><span>我的订单</span></li>
+                    <li><span class="dingdan">我的订单</span></li>
                     <li><span>我的收藏</span></li>
                 </ul>
             </span>
@@ -368,6 +368,9 @@
         $("#header-right span").css({ "color": "white" });
         console.log($.cookie("username"));
     }
+    $(".dingdan").click(function () {
+        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    })
     $("#hv").mouseout(function () {
         $(this).css({ "background": "#444", "color": "#C0C0C0" }).find("#phone").css({ "display": "none", "left": "-42px" })
     });
@@ -516,7 +519,13 @@
             <a class="clk4" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[1].pid}"></a>`);
             $(".shop").eq(4).html(`  <img src="https://cdn.ctfmall.com/path/YING0404-1920_05.jpg" alt="">
             <a class="clk5" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[0].pid}"></a>`);
+
         })
+    $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+        id: $.cookie('id')
+    }, res => {
+        $(".icon-gouwuche span").html(res.data.length);
+    })
 </script>
 <script>
     window.onload = function () {
@@ -570,9 +579,6 @@
             }
         }
     }
-</script>
-<script>
-
 </script>
 
 </html>

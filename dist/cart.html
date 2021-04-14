@@ -89,11 +89,20 @@
     </div>
     <h1>我的购物车</h1>
     <div id="mycart">
+        <ul class="cart-header">
+            <li> <span>商品</span><span>名称</span><span>
+                    数量
+                </span><span>价格</span><span>操作</span></li>
+        </ul>
+        <ul class="cartlist">
+
+        </ul>
         <div class="gwc">
             <img src="https://www.ctfmall.com/skins/default2015/images/cart2.png" alt="">
             <h3>您的购物车暂时没商品，立即</h3>
             <a href="http://127.0.0.1:5500/dist/shouye.html">随便逛逛</a>
         </div>
+        <p class="allprice">合算：<span class="allsum">0</span></p>
     </div>
     <aside style="position: fixed;right: 10px;bottom: 20px;z-index: 5;">
         <div class="iconfont icon-gouwuche">
@@ -223,10 +232,15 @@
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery_cookie.js"></script>
 <script>
+    $(".logo img").click(
+        function () {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html");
+        }
+    )
     if ($.cookie("username")) {
         $("#header-right span").html("欢迎您" + $.cookie("username"));
         $("#header-right span").css({ "color": "white" });
-        console.log($.cookie("username"));
+        // console.log($.cookie("username"));
     }
     $(window).scroll(function (e) {
         let b = $(window).scrollTop();
@@ -243,6 +257,70 @@
             }, 700);
         })
     })
+
+    $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+        id: $.cookie('id')
+    }, res => {
+        $(".icon-gouwuche span").html(res.data.length);
+        console.log(res.data.length);
+        if (res.data.length != 0) {
+            $(".gwc").css("display", "none")
+            $(".cart-header").css("display", "block")
+        } else {
+            $(".gwc").css("display", "block")
+            $(".cart-header").css("display", "none")
+        }
+        var str = "";
+        $.each(res.data, function (i, n) {
+            console.log(i, n);
+            str += `
+            <li><img src="${res.data[i].pimg}">
+                <span>${res.data[i].pname}</span> <span>${res.data[i].pnum}</span> <span class="onesum">${res.data[i].pprice * res.data[i].pnum}</span>
+                 <span><button id="${res.data[i].pid}">删除</button></span></li>
+                    `;
+            $(".cartlist").html(str);
+        })
+        $(".cartlist li img").css({ "width": "50px", "height": "50px" })
+        $(".cartlist li").css({ "display": "flex" }).find("span").css({ "display": "block", "width": "330px" })
+        $(".cart-header li").css({ "display": "flex" }).find("span").not(":first").css({ "display": "block", "width": "330px" })
+
+        $("button").click(function () {
+            $(this).parents("li").remove();
+            $.get("http://jx.xuzhixiang.top/ap/api/cart-delete.php", {
+                uid: $.cookie('id'),
+                pid: $(this).attr('id')
+            }, res => {
+                console.log(res)
+                $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+                    id: $.cookie('id')
+                }, res => {
+                    title();
+                    $(".icon-gouwuche span").html(res.data.length);
+                    if (res.data.length != 0) {
+                        $(".gwc").css("display", "none")
+                        $(".cart-header").css("display", "block")
+                    } else {
+                        $(".gwc").css("display", "block")
+                        $(".cart-header").css("display", "none")
+                    }
+                })
+
+            })
+        })
+        title();
+        function title() {
+            let sum = 0;
+            console.log($(".onesum").text())
+            $.each($(".onesum"), function (i, n) {
+                console.log($(".onesum").eq(i).text());
+                sum += Number($(".onesum").eq(i).text());
+                console.log(sum);
+            })
+            $(".allsum").html("¥" + sum);
+        }
+
+    })
+
 </script>
 
 </html>

@@ -320,6 +320,11 @@
 <script src="js/jquery_cookie.js"></script>
 
 <script>
+    $(".logo img").click(
+        function () {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html");
+        }
+    )
     if ($.cookie("username")) {
         $("#header-right span").html("欢迎您" + $.cookie("username"));
         $("#header-right span").css({ "color": "white" });
@@ -526,10 +531,23 @@
                     pnum: $(".num").val()
                 }, res => {
                     console.log(res);
+                    $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+                        id: $.cookie('id')
+                    }, res => {
+                        console.log(res);
+                        $(".icon-gouwuche span").html(res.data.length);
+                    })
                 })
+
+
         })
     })
-
+    $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+        id: $.cookie('id')
+    }, res => {
+        console.log(res);
+        $(".icon-gouwuche span").html(res.data.length);
+    })
 </script>
 
 

@@ -98,7 +98,23 @@ flex-wrap: nowrap;}
     margin-left: 92px;
     background: #F8F8F8;
     margin-bottom: 50px;
-    text-align: center;}
+    text-align: center;
+  position: relative;}
+  .allprice{
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    font-size: 22px;
+    line-height: 40px;
+    text-align: right;
+  }
+  .allsum{
+    padding: 0 15px;
+    text-align: center;
+    background: crimson;
+    color: white;
+  }
     .gwc h3{
         font-weight: normal;
     }
@@ -229,4 +245,4 @@ flex-wrap: nowrap;}
                   }
                   .backtop{font-size: 25px;
                     display: none;
-                  }
+                }

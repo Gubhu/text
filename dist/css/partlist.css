@@ -347,9 +347,12 @@ flex-wrap: nowrap;}
                     .swiper-slide-duplicate-active {
                         transform: scale(1);
                     }
+                    .partlist{
+                      margin-bottom: 15px;
+                    }
                     h2{margin-left: 92px;
                         font-weight: normal;}
-                    .much{margin-left: 800px;
+                    .much{margin-left: 700px;
                         font-size: 38px;
                         color: #9E0028;
                         line-height: 50px;}

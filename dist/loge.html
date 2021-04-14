@@ -127,8 +127,9 @@
                     if (res.code == 1) {
                         // alert(res.msg)
                         $.cookie('username', $(".use").first().val());
-                        $.cookie('id', res.data.id)
-                        // $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html")
+                        $.cookie('id', res.data.id);
+                        $.cookie('token', res.data.token);
+                        $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html")
                     } else {
                         alert(res.msg)
                     }
