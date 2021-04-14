@@ -75,7 +75,7 @@
                     </li>
                 </ul>
             </a>
-            <span>
+            <span class="ldd">
                 <a id="load" href="http://127.0.0.1:5500/dist/loge.html">
                     登录
                 </a>
@@ -102,8 +102,11 @@
             <h3>您的购物车暂时没商品，立即</h3>
             <a href="http://127.0.0.1:5500/dist/shouye.html">随便逛逛</a>
         </div>
-        <p class="allprice">合算：<span class="allsum">0</span></p>
+        <div class="pay">
+            <img src="img/pay.jpeg" alt="">
+        </div>
     </div>
+    <p class="allprice">合算： 您添加了<span class="typ">0</span>种商品，总价<span class="allsum">0</span><button>去结算</button></p>
     <aside style="position: fixed;right: 10px;bottom: 20px;z-index: 5;">
         <div class="iconfont icon-gouwuche">
             <span>0</span>
@@ -232,14 +235,55 @@
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery_cookie.js"></script>
 <script>
+    $("#header-left a").mouseover(function () {
+        $(this).css("color", "white")
+    });
+    $("#header-left a").mouseout(function () {
+        $(this).css("color", "#C0C0C0")
+    });
+    $("#hv").mouseover(function () {
+        $(this).css({ "background": "white ", "color": "black" }).find("#phone").css({ "display": "block", "left": "-42px" })
+    });
+    $("#hv").mouseout(function () {
+        $(this).css({ "background": "#444", "color": "#C0C0C0" }).find("#phone").css({ "display": "none", "left": "-42px" })
+    });
+    $("#hv1").mouseover(function () {
+        $(this).css({ "color": "white" }).find("#riseserve").css({ "display": "block", "color": "#C0C0C0" })
+    });
+    $("#hv1").mouseout(function () {
+        $(this).css({ "color": "#C0C0C0" }).find("#riseserve").css({ "display": "none" })
+    });
+    $("#goldprise").mouseover(function () {
+        $(this).css({ "background": "white" }).find("#delit").css({ "display": "block" })
+    });
+    $("#goldprise").mouseout(function () {
+        $(this).css({ "background": "#F0B60A" }).find("#delit").css({ "display": "none" })
+    });
+    $("#nm").each(function () {
+        $(this).mouseover(function () {
+            $(this).css({ "color": "red" })
+        });
+        $(this).mouseout(function () {
+            $(this).css({ "color": "#8F8F8F" })
+        });
+    })
+    $(" .allprice button").click(
+        function () {
+            $(".pay").stop().animate({ "right": "100px", "opacity": "1" }, 700)
+        }
+    )
+    $(".pay").click(function () {
+        $(".pay").stop().animate({ "right": "-220px", "opacity": "0" }, 700)
+    })
+
     $(".logo img").click(
         function () {
             $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html");
         }
     )
     if ($.cookie("username")) {
-        $("#header-right span").html("欢迎您" + $.cookie("username"));
-        $("#header-right span").css({ "color": "white" });
+        $("#header-right .ldd").html("欢迎您" + $.cookie("username"));
+        $("#header-right .ldd").css({ "color": "white" });
         // console.log($.cookie("username"));
     }
     $(window).scroll(function (e) {
@@ -262,6 +306,7 @@
         id: $.cookie('id')
     }, res => {
         $(".icon-gouwuche span").html(res.data.length);
+        $(".typ").html(res.data.length);
         console.log(res.data.length);
         if (res.data.length != 0) {
             $(".gwc").css("display", "none")
@@ -275,7 +320,8 @@
             console.log(i, n);
             str += `
             <li><img src="${res.data[i].pimg}">
-                <span>${res.data[i].pname}</span> <span>${res.data[i].pnum}</span> <span class="onesum">${res.data[i].pprice * res.data[i].pnum}</span>
+                <span>${res.data[i].pname}</span><input class="dn" type="button" value="-" ><span>
+                    <input class="rpnum" type="text" value="${res.data[i].pnum}"></span><input class="up" type="button" value="+" > <span class="onesum">${Math.floor(res.data[i].pprice * res.data[i].pnum * 100) / 100}</span>
                  <span><button id="${res.data[i].pid}">删除</button></span></li>
                     `;
             $(".cartlist").html(str);
@@ -283,6 +329,55 @@
         $(".cartlist li img").css({ "width": "50px", "height": "50px" })
         $(".cartlist li").css({ "display": "flex" }).find("span").css({ "display": "block", "width": "330px" })
         $(".cart-header li").css({ "display": "flex" }).find("span").not(":first").css({ "display": "block", "width": "330px" })
+        $(".up").css("height", "20px")
+        $(".dn").css("height", "20px")
+        $(".up").click(function () {
+            let index = $(".up").index(this);
+            console.log(index);
+            let Rnum = $(".rpnum").eq(index).val() * 1 + 1;
+            $(".rpnum").eq(index).val(Rnum)
+            $.get("http://jx.xuzhixiang.top/ap/api/cart-update-num.php", {
+                uid: $.cookie('id'),
+                pid: $("button").eq(index).attr('id'),
+                pnum: Rnum
+            }, res => {
+                console.log(res)
+                $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+                    id: $.cookie('id')
+                }, res => {
+                    $(".onesum").eq(index).html(Math.floor(Rnum * res.data[index].pprice * 100) / 100);
+                    title();
+                })
+
+            })
+        })
+
+        $(".dn").click(function () {
+            let index = $(".dn").index(this);
+            console.log(index);
+            let Rnum = $(".rpnum").eq(index).val() * 1;
+            if (Rnum > 1) {
+                Rnum -= 1;
+            }
+            else {
+                Rnum = 1;
+            }
+            $(".rpnum").eq(index).val(Rnum)
+            $.get("http://jx.xuzhixiang.top/ap/api/cart-update-num.php", {
+                uid: $.cookie('id'),
+                pid: $("button").eq(index).attr('id'),
+                pnum: Rnum
+            }, res => {
+                console.log(res)
+                $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+                    id: $.cookie('id')
+                }, res => {
+                    $(".onesum").eq(index).html(Math.floor(Rnum * res.data[index].pprice * 100) / 100);
+                    title();
+                })
+
+            })
+        })
 
         $("button").click(function () {
             $(this).parents("li").remove();
@@ -296,6 +391,7 @@
                 }, res => {
                     title();
                     $(".icon-gouwuche span").html(res.data.length);
+                    $(".typ").html(res.data.length);
                     if (res.data.length != 0) {
                         $(".gwc").css("display", "none")
                         $(".cart-header").css("display", "block")
@@ -314,6 +410,7 @@
             $.each($(".onesum"), function (i, n) {
                 console.log($(".onesum").eq(i).text());
                 sum += Number($(".onesum").eq(i).text());
+                sum = Math.floor(sum * 100) / 100;
                 console.log(sum);
             })
             $(".allsum").html("¥" + sum);

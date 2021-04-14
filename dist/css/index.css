@@ -22,7 +22,7 @@ li {text-align: center;
 #phone {display: none;
   position: absolute;
   width: 125px;
-z-index: 2;}
+z-index: 4;}
   #riseserve{
     width: 80px;
     display: none;
@@ -58,7 +58,7 @@ justify-content: space-between;}
   right: 243px;
   position: absolute;
   border: 1px solid #EFEFEF;
-  z-index: 2;
+  z-index: 4;
 }
 #delit li{
   width: 180px;
@@ -165,6 +165,21 @@ font-size: 25px;}
     border-bottom: 1px solid #EFEFEF;}
 #cart{
   margin-right: 70px;
+}
+#cart ul{
+  position: absolute;
+  right: 0;
+  font-size: 12px;
+  text-align: center;
+  line-height: 40px;
+  color: #8F8F8F;
+  background: white;
+  z-index: 2;
+  width: 200px;
+  display: none;
+}
+#cart:hover ul{
+  display: block;
 }
 #cart,#user{
   position: relative;
@@ -337,7 +352,7 @@ margin-bottom: 40px;}
     color: #717171;
     font-size: 14px;}
     .foottap li a:hover{
-      text-decoration: underline;
+     color: rgb(216, 7, 7);
     }
     .foottap li p{
       font-size: 13px;
