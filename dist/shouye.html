@@ -219,7 +219,12 @@
             <a class="clk5" href="http://127.0.0.1:5500/dist/partlistcars.html"></a> -->
         </div>
         <div class="shop">
-            <img src="https://cdn.ctfmall.com/path/YING0404-1920_06.jpg" alt="">
+            <!-- <img src="https://cdn.ctfmall.com/path/YING0404-1920_06.jpg" alt="">
+            <a class="clk6" href=""></a>
+            <a class="clk7" href=""></a>
+            <a class="clk8" href=""></a>
+            <a class="clk9" href=""></a>
+            <a class="clk10" href=""></a> -->
         </div>
         <div class="shop">
             <img src="https://cdn.ctfmall.com/path/YING0404-1920_07.jpg" alt="">
@@ -512,14 +517,19 @@
             console.log(res);
             console.log(res.data);
             $(".shop").eq(0).html(`  <img src="https://cdn.ctfmall.com/path/YING0404-1920_01.jpg" alt="">
-            <a class="clk1" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[3].pid}"></a>`);
+            <a class="clk1" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[8].pid}"></a>`);
             $(".shop").eq(3).html(`  <img src="https://cdn.ctfmall.com/path/YING0404-1920_04.jpg" alt="">
-            <a class="clk2" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[4].pid}"></a>
-            <a class="clk3" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[2].pid}"></a>
-            <a class="clk4" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[1].pid}"></a>`);
+            <a class="clk2" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[9].pid}"></a>
+            <a class="clk3" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[7].pid}"></a>
+            <a class="clk4" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[6].pid}"></a>`);
             $(".shop").eq(4).html(`  <img src="https://cdn.ctfmall.com/path/YING0404-1920_05.jpg" alt="">
-            <a class="clk5" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[0].pid}"></a>`);
-
+            <a class="clk5" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[5].pid}"></a>`);
+            $(".shop").eq(5).html(`   <img src="https://cdn.ctfmall.com/path/YING0404-1920_06.jpg" alt="">
+            <a class="clk6" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[4].pid}"></a>
+            <a class="clk7" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[3].pid}"></a>
+            <a class="clk8" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[2].pid}"></a>
+            <a class="clk9" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[1].pid}"></a>
+            <a class="clk10" href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[0].pid}"></a>`);
         })
     $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
         id: $.cookie('id')

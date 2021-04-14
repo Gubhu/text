@@ -220,6 +220,7 @@ position: absolute;
   position: absolute;
   background: yellow;
   z-index: 2;
+  opacity: 0;
 }
 .clk1{
   top: 260px;
@@ -250,6 +251,36 @@ position: absolute;
   right: 450px;
   height: 240px;
   width: 160px;
+}
+.clk6{
+  top: 415px;
+  left: 390px;
+  width: 150px;
+  height: 40px;
+}
+.clk7{
+  top: 415px;
+  left: 730px;
+  width: 150px;
+  height: 40px;
+}
+.clk8{
+  top: 415px;
+  right: 385px;
+  width: 150px;
+  height: 40px;
+}
+.clk9{
+  bottom: 80px;
+  left: 580px;
+  width: 150px;
+  height: 40px;
+}
+.clk10{
+  bottom: 80px;
+  right: 350px;
+  width: 150px;
+  height: 40px;
 }
 .mshop{
   width: 100%;
