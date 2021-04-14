@@ -76,7 +76,7 @@
                     </li>
                 </ul>
             </a>
-            <span>
+            <span class="ldd">
                 <a id="load" href="http://127.0.0.1:5500/dist/loge.html">
                     登录
                 </a>
@@ -156,11 +156,14 @@
                 </ul>
             </span>
             <span class="iconfont icon-gouwuche" id="cart">
+                <ul>
+                    <p class="word">您的购物车尚无商品</p>
+                </ul>
             </span>
             <span class="iconfont icon-yonghu" id="user">
                 <ul class="userserve">
                     <li> <span> 我的周大福</span></li>
-                    <li><span>我的订单</span></li>
+                    <li><span class="dingdan">我的订单</span></li>
                     <li><span>我的收藏</span></li>
                 </ul>
             </span>
@@ -325,9 +328,18 @@
             $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html");
         }
     )
+
+    $("#cart").click(function () {
+        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    })
+
+    $(".dingdan").click(function () {
+        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    })
+
     if ($.cookie("username")) {
-        $("#header-right span").html("欢迎您" + $.cookie("username"));
-        $("#header-right span").css({ "color": "white" });
+        $("#header-right .ldd").html("欢迎您" + $.cookie("username"));
+        $("#header-right .ldd").css({ "color": "white" });
         console.log($.cookie("username"));
     }
     $(".icon-gouwuche").click(function () {
@@ -548,6 +560,17 @@
     }, res => {
         console.log(res);
         $(".icon-gouwuche span").html(res.data.length);
+        var str = "";
+        $.each(res.data, function (i, n) {
+            console.log(i, n);
+            str += `
+            <li><img src="${res.data[i].pimg}">
+                <span>${res.data[i].pname}</span> <span>${res.data[i].pnum}</span> <span class="onesum">${res.data[i].pprice * res.data[i].pnum}</span></li>
+                    `;
+            $("#cart ul").html(str);
+        })
+        $("#cart ul li img").css({ "width": "20px", "height": "20px" })
+        $("#cart ul li ").css({ "line-height": "20px" })
     })
 </script>
 

@@ -30,6 +30,12 @@ z-index: 4;}
     left: -13px;
   }
   #riseserve li{background-color: #444;}
+  #riseserve li:hover{
+    color: white;
+  }
+  #nm:hover{
+    color: red;
+  }
 html, body {
   width: 100%; }
 

@@ -177,6 +177,27 @@ flex-wrap: nowrap;}
       margin-top: -2px;
       font-size: 28px;
   }
+  #riseserve li:hover{
+    color: white;
+  }
+  #nm:hover{
+    color: red;
+  }
+  #cart ul{
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    text-align: center;
+    line-height: 40px;
+    color: #8F8F8F;
+    background: white;
+    z-index: 2;
+    width: 200px;
+    display: none;
+  }
+  #cart:hover ul{
+    display: block;
+  }
   .userserve{ background: white;
     display: none;
     right: 243px;

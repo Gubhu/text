@@ -56,6 +56,12 @@ flex-wrap: nowrap;}
   #load:hover{
     color: white;
   }
+  #riseserve li:hover{
+    color: white;
+  }
+  #nm:hover{
+    color: red;
+  }
   header a{text-decoration: none;
     font-size: 13px;
     color: #C0C0C0;
