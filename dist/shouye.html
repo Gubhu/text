@@ -359,11 +359,17 @@
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/jquery_cookie.js"></script>
 <script>
-    $(".icon-gouwuche").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    $("aside .icon-gouwuche").click(function () {
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        }
+        else { alert("请先登录") }
     })
     $("#cart").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        }
+        else { alert("请先登录") }
     })
     $("#header-left a").mouseover(function () {
         $(this).css("color", "white")
@@ -374,13 +380,22 @@
     $("#hv").mouseover(function () {
         $(this).css({ "background": "white ", "color": "black" }).find("#phone").css({ "display": "block", "left": "-42px" })
     });
-    if ($.cookie("username")) {
-        $("#header-right .ldd").html("欢迎您" + $.cookie("username"));
+    if ($.cookie("username") != "null") {
+        $("#header-right .ldd").html("欢迎您" + $.cookie("username") + `<input class="dout" type="button" value="退出账号">`);
+
         $("#header-right .ldd").css({ "color": "white" });
         console.log($.cookie("username"));
     }
+    $(".dout").click(function () {
+        $.cookie('username', null);
+        $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html")
+    })
     $(".dingdan").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        }
+        else { alert("请先登录") }
+
     })
     $("#hv").mouseout(function () {
         $(this).css({ "background": "#444", "color": "#C0C0C0" }).find("#phone").css({ "display": "none", "left": "-42px" })
@@ -532,18 +547,24 @@
     $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
         id: $.cookie('id')
     }, res => {
-        $(".icon-gouwuche span").html(res.data.length);
-        var str = "";
-        $.each(res.data, function (i, n) {
-            console.log(i, n);
-            str += `
+        if ($.cookie('username') != "null") {
+            $(".icon-gouwuche span").html(res.data.length);
+            var str = "";
+            $.each(res.data, function (i, n) {
+                console.log(i, n);
+                str += `
             <li><img src="${res.data[i].pimg}">
                 <span>${res.data[i].pname}</span> <span>${res.data[i].pnum}</span> <span class="onesum">${res.data[i].pprice * res.data[i].pnum}</span></li>
                     `;
-            $("#cart ul").html(str);
-        })
-        $("#cart ul li img").css({ "width": "20px", "height": "20px" })
-        $("#cart ul li ").css({ "line-height": "20px" })
+                $("#cart ul").html(str);
+            })
+            $("#cart ul li img").css({ "width": "20px", "height": "20px" })
+            $("#cart ul li ").css({ "line-height": "20px" })
+        }
+        else {
+            $(".icon-gouwuche span").html(0);
+        }
+
     })
 </script>
 <script>

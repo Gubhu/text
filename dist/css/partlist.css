@@ -392,3 +392,9 @@ flex-wrap: nowrap;}
                         }
                         .join a{text-decoration: none;
                         color: white;}
+                        h1{ margin-left: 92px;
+                          font-weight: normal;
+                        }
+                        .cnxh{
+                          margin-left: 92px;
+                        }

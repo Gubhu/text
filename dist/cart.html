@@ -281,11 +281,15 @@
             $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html");
         }
     )
-    if ($.cookie("username")) {
-        $("#header-right .ldd").html("欢迎您" + $.cookie("username"));
+    if ($.cookie("username") != "null") {
+        $("#header-right .ldd").html("欢迎您" + $.cookie("username") + `<input class="dout" type="button" value="退出账号">`);
         $("#header-right .ldd").css({ "color": "white" });
         // console.log($.cookie("username"));
     }
+    $(".dout").click(function () {
+        $.cookie('username', null);
+        $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html")
+    })
     $(window).scroll(function (e) {
         let b = $(window).scrollTop();
         const c = 100;

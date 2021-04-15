@@ -90,7 +90,7 @@
     </div>
     <div class="mainnav">
         <nav class="nav-left">
-            <a href="" style="color: brown;border-bottom: solid
+            <a href="http://127.0.0.1:5500/dist/shouye.html" style="color: brown;border-bottom: solid
             1px brown;">首页</a>
             <a class="sh" href="">全部商品</a>
             <a class="sh" href="">热销</a>
@@ -192,6 +192,10 @@
         <button class="join"><a href="">加入购物车</a></button><span>数量</span>
         <button class="dn">-</button><input class="num" style="width: 15px;" type="text" value="1">
         <button class="up">+</button> -->
+    </div>
+    <h1>猜你喜欢</h1>
+    <div class="cnxh">
+
     </div>
     <aside style="position: fixed;right: 10px;bottom: 20px;z-index: 5;">
         <div class="iconfont icon-gouwuche">
@@ -329,21 +333,43 @@
         }
     )
 
+    $("aside .icon-gouwuche").click(function () {
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html");
+        }
+        else {
+            alert("请先登录");
+            return;
+        }
+    })
     $("#cart").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html");
+        }
+        else {
+            alert("请先登录");
+            return;
+        }
     })
-
     $(".dingdan").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        if ($.cookie('username') != "null") {
+            $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+        }
+        else {
+            alert("请先登录");
+        }
+
+
     })
 
-    if ($.cookie("username")) {
-        $("#header-right .ldd").html("欢迎您" + $.cookie("username"));
+    if ($.cookie("username") != "null") {
+        $("#header-right .ldd").html("欢迎您" + $.cookie("username") + `<input class="dout" type="button" value="退出账号">`);
         $("#header-right .ldd").css({ "color": "white" });
         console.log($.cookie("username"));
     }
-    $(".icon-gouwuche").click(function () {
-        $(location).attr("href", "http://127.0.0.1:5500/dist/cart.html")
+    $(".dout").click(function () {
+        $.cookie('username', null);
+        $(location).attr("href", "http://127.0.0.1:5500/dist/shouye.html")
     })
     $("#header-left a").mouseover(function () {
         $(this).css("color", "white")
@@ -538,19 +564,24 @@
         })
 
         $(".join").click(function () {
-            $.get("http://jx.xuzhixiang.top/ap/api/add-product.php",
-                {
-                    uid: $.cookie('id'), pid: id,
-                    pnum: $(".num").val()
-                }, res => {
-                    console.log(res);
-                    $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
-                        id: $.cookie('id')
+            if ($.cookie('username') != "null") {
+                $.get("http://jx.xuzhixiang.top/ap/api/add-product.php",
+                    {
+                        uid: $.cookie('id'), pid: id,
+                        pnum: $(".num").val()
                     }, res => {
                         console.log(res);
-                        $(".icon-gouwuche span").html(res.data.length);
+                        $.get("http://jx.xuzhixiang.top/ap/api/cart-list.php", {
+                            id: $.cookie('id')
+                        }, res => {
+                            console.log(res);
+                            $(".icon-gouwuche span").html(res.data.length);
+                        })
                     })
-                })
+            }
+            else {
+                alert("请先登录")
+            }
 
 
         })
@@ -559,18 +590,42 @@
         id: $.cookie('id')
     }, res => {
         console.log(res);
-        $(".icon-gouwuche span").html(res.data.length);
-        var str = "";
-        $.each(res.data, function (i, n) {
-            console.log(i, n);
-            str += `
+        if ($.cookie('username') != "null") {
+            $(".icon-gouwuche span").html(res.data.length);
+            let str = "";
+            $.each(res.data, function (i, n) {
+                console.log(i, n);
+                str += `
             <li><img src="${res.data[i].pimg}">
                 <span>${res.data[i].pname}</span> <span>${res.data[i].pnum}</span> <span class="onesum">${res.data[i].pprice * res.data[i].pnum}</span></li>
                     `;
-            $("#cart ul").html(str);
-        })
+                $("#cart ul").html(str);
+            })
+        }
+        else {
+            $(".icon-gouwuche span").html(0);
+        }
+
         $("#cart ul li img").css({ "width": "20px", "height": "20px" })
         $("#cart ul li ").css({ "line-height": "20px" })
+    })
+    $.get("http://jx.xuzhixiang.top/ap/api/allproductlist.php", {
+        pagesize: 5,
+        pagenum: 1,
+        uid: $.cookie('id')
+    }, res => {
+        console.log(res.data);
+        let str1 = "";
+        $.each(res.data, function (i, n) {
+            console.log(i, n)
+            str1 += `<a href="http://127.0.0.1:5500/dist/partlistcars.html?id=${res.data[i].pid}">
+            <img src="${res.data[i].pdesc}"><p>${res.data[i].pname}</p></a>`;
+
+        })
+        $(".cnxh").html(str1);
+        $(".cnxh").find("a").css({ "color": "black", "font-size": "13px", " text-decoration": "none" }).find("img").css({ "width": "100px", "height": "100px" })
+        $(".cnxh").find("a").find("p").css({ "width": "100px", "height": "100px" });
+        $(".cnxh").find("a").css({ "float": "left", "padding": "15px" });
     })
 </script>
 
